@@ -41,8 +41,58 @@ const Button = styled.button`
 
 const Form = ({getUsers, onEdit, setOnEdit}) => {
     const ref = useRef();
+
+    useEffect(() => {
+      if (onEdit) {
+        const user = ref.current;
+  
+        user.nome.value = onEdit.nome;
+        user.email.value = onEdit.email;
+        user.fone.value = onEdit.fone;
+      }
+    }, [onEdit]);
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+  
+      const user = ref.current;
+  
+      if (
+        !user.nome.value ||
+        !user.email.value ||
+        !user.fone.value 
+      ) {
+        return toast.warn("Preencha todos os campos!");
+      }
+  
+      if (onEdit) {
+        await axios
+          .put("http://localhost:3001/" + onEdit.id, {
+            nome: user.nome.value,
+            email: user.email.value,
+            fone: user.fone.value,
+          })
+          .then(({ data }) => toast.success(data))
+          .catch(({ data }) => toast.error(data));
+      } else {
+        await axios
+          .post("http://localhost:3001", {
+            nome: user.nome.value,
+            email: user.email.value,
+            fone: user.fone.value
+          })
+          .then(({ data }) => toast.success(data))
+          .catch(({ data }) => toast.error(data));
+      }
+  
+      user.nome.value = "";
+      user.email.value = "";
+      user.fone.value = "";
+  
+      setOnEdit(null);
+      getUsers();
+    };
     return (
-        <FormContainer ref={ref}>
+        <FormContainer ref={ref}  onSubmit={handleSubmit}>
             <InputArea>
                 <Label>Nome</Label>
                 <Input name="nome"/>
@@ -54,10 +104,6 @@ const Form = ({getUsers, onEdit, setOnEdit}) => {
             <InputArea>
                 <Label>Fone</Label>
                 <Input name="fone"/>
-            </InputArea>
-            <InputArea>
-                <Label>Data de nascimento</Label>
-                <Input name="data" type="date"/>
             </InputArea>
             <Button type="submit">Enviar</Button>
         </FormContainer>

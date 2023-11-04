@@ -78,7 +78,7 @@ const Grid = ({ users, setUsers, setOnEdit }) => {
                         {item.fone}
                     </Td>
                     <Td alignCenter width="5%">
-                        <FaEdit />
+                        <FaEdit onClick={() => handleEdit(item)}/>
                     </Td>
                     <Td alignCenter width="5%">
                         <FaTrash onClick={() => handleDelete(item.id)}/>
