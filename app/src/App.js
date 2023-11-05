@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css"
 import Form from './components/form';
 import Grid from './components/grid';
 import axios from 'axios';
-//parei em 13:44 https://www.youtube.com/watch?v=voXTVTW73E8&t=494s&ab_channel=WillDev
+
 
 const Container = styled.div`
   width: 100%;
@@ -43,7 +43,7 @@ function App() {
    <Container >
     <Title>usuarios</Title>
     <Form onEdit={onEdit} setOnEdit={setOnEdit} getUsers={getUsers}/>
-    <Grid onEdit={onEdit} users={users} getUsers={getUsers}/>
+    <Grid setOnEdit={setOnEdit} users={users} getUsers={getUsers}/>
    </Container>
    <ToastContainer autoClose={3000} position={toast.POSITION.BOTTOM_LEFT}/> 
    <GlobalStyles />
