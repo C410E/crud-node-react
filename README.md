@@ -11,5 +11,5 @@ O node foi utilizado para criação da api.
 * Clone o repositorio
 * npm install no app e no diretorio server
 * cd app
-* npm start, e npm run dev em server
+* npm start no diretorio app, e npm run dev em server
 
